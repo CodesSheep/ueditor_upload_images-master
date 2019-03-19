@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../static/jquery.min.js"></script>
+</head>
+<body>
+<input type="file" name="upload" id="upload" value="" placeholder="免冠照片">
+<input type="button"   onclick="postData()" value="下一步" name="" style="width:100px;height:30px;">
+<!--<img alt="" src="D:/Program Files/redbookimg\\2018\\12\\9\\750.png">-->
+</body>
+
+<!--
+<script>
+    function insert() {
+        $.ajax({
+            url:"http://localhost:8088/test/insert",
+            type:"post",
+            data:{
+
+            },
+            dataType:"json",
+            success: function (data) {
+                alert(data)
+            }
+        })
+    }
+</script>-->
+
+<script>
+    function postData(){
+        var formData = new FormData();
+        formData.append("upload",$("#upload")[0].files[0]);
+        formData.append("service",'App.Passion.UploadFile');
+        $.ajax({
+            url:'http://localhost:8088/test/file/uploadImage', /*接口域名地址*/
+            type:'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res){
+                console.log(res.data);
+                if(res.data["code"]=="succ"){
+                    alert('成功');
+                }else if(res.data["code"]=="err"){
+                    alert('失败');
+                }else{
+                    console.log(res);
+                }
+            }
+        })
+    }
+    </script>
+</html>
